@@ -13,11 +13,6 @@ function StartPage({ dispatch }: StartPageProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
   const [lift, setLift] = useState(false); // triggers float-up
-  const handleSkip = () => {
-    setTextIndex(dialogue.length - 1);
-    setLift(true);
-    setTimeout(() => setShowChoices(true), 1200);
-  };
 
   const dialogue = [
     "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
@@ -30,10 +25,15 @@ function StartPage({ dispatch }: StartPageProps) {
     if (!isLastLine) {
       setTextIndex((i) => i + 1);
     } else {
-      // final press → float up, then show button with fade-in
       setLift(true);
       setTimeout(() => setShowChoices(true), 1200);
     }
+  };
+
+  const handleSkip = () => {
+    setTextIndex(dialogue.length - 1);
+    setLift(true);
+    setTimeout(() => setShowChoices(true), 1200);
   };
 
   const handleStart = () => {
@@ -47,11 +47,11 @@ function StartPage({ dispatch }: StartPageProps) {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen">
+    <div className="relative flex flex-col items-center justify-center min-h-screen font-pixel">
       {/* Music button top-right */}
       <button
         onClick={toggleMusic}
-        className="fixed top-4 right-4 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-indigo-800/80 border border-purple-400 shadow-lg transition hover:scale-110 hover:bg-purple-700"
+        className="fixed top-4 right-4 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-indigo-800/80 border border-purple-400 shadow-lg transition hover:scale-110 hover:bg-purple-700 text-sm"
       >
         {isPlaying ? "🔊" : "🔇"}
       </button>
@@ -75,17 +75,15 @@ function StartPage({ dispatch }: StartPageProps) {
         {/* Dialogue bubble */}
         <div className="relative w-[560px] h-[220px] bg-indigo-800 text-white rounded-3xl p-6 shadow-2xl border border-purple-400/70">
           <div className="h-full pr-14">
-            <p
-              className="h-[200px] overflow-y-auto text-2xl leading-relaxed tracking-wide font-light"
-              style={{ fontFamily: '"Cinzel Decorative", cursive' }}
-            >
+            <p className="h-[200px] overflow-y-auto text-lg leading-relaxed tracking-wide text-left">
               <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
+
             {/* Skip button */}
             {!lift && (
               <button
                 onClick={handleSkip}
-                className="absolute top-2 right-2 px-3 py-1 text-sm rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
+                className="absolute top-2 right-2 px-3 py-1 text-xs rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
               >
                 Skip
               </button>
@@ -95,17 +93,17 @@ function StartPage({ dispatch }: StartPageProps) {
           {/* Tail */}
           <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
-          {/* Next button (stays visible on last line; hides only after lift) */}
+          {/* Next button */}
           {!lift && (
             <button
               onClick={handleNext}
               aria-label="Next"
-              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-purple-600 text-white shadow-lg
+              className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-purple-600 text-white shadow-lg
                  transition transform duration-150 ease-out
                  hover:bg-purple-700 hover:scale-110
                  active:scale-90 active:bg-purple-800
                  focus:outline-none focus:ring-4 focus:ring-purple-400/60
-                 animate-pulse-soft"
+                 animate-pulse-soft text-sm"
             >
               →
             </button>
@@ -113,10 +111,10 @@ function StartPage({ dispatch }: StartPageProps) {
         </div>
       </div>
 
-      {/* Begin button (appears after float-up, with fade-in) */}
+      {/* Begin button */}
       {showChoices && (
         <button
-          className="-mt-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-10 py-4 text-2xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn"
+          className="-mt-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-3 text-lg font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn "
           onClick={handleStart}
         >
           Begin the Reading

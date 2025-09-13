@@ -5,12 +5,11 @@ import { TypewriterText } from "../components/TypeWriter";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card";
 import ClaudeChat from "../components/ClaudeChat";
 
-
 type ResultPageProps = {
   dispatch: React.Dispatch<GameAction>;
   choices: string[];
   prompt?: string;
-  spread: number; // ✅ add spread
+  spread: number;
 };
 
 // Import all tarot images dynamically
@@ -67,7 +66,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
       <div
         className={`flex items-start gap-6 -translate-x-10 relative z-10 ${
           lift ? "animate-floatUpFadeOut" : ""
-        }`}
+        } font-pixel`}
       >
         {/* Wizard */}
         <div className="relative">
@@ -79,31 +78,20 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
           />
         </div>
 
-        {/* Dialogue bubble */}
-        <div className="relative w-[560px] h-[240px] bg-indigo-800 text-white rounded-3xl p-6 shadow-2xl border border-purple-400/70">
+        {/* Dialogue bubble → pixel-box */}
+        <div className="relative w-[560px] h-[240px] pixel-box px-8 py-6 shadow-2xl animate-slideDownBounce">
           <div className="h-full pr-14">
-            <p
-              className="h-[200px] overflow-y-auto text-2xl leading-relaxed tracking-wide font-light"
-              style={{ fontFamily: '"Cinzel Decorative", cursive' }}
-            >
+            <p className="h-[200px] overflow-y-auto text-lg leading-relaxed text-left">
               <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
           </div>
-
-          {/* Tail */}
-          <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
           {/* Next button */}
           {!lift && (
             <button
               onClick={handleNext}
               aria-label="Next"
-              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-purple-600 text-white shadow-lg
-                 transition transform duration-150 ease-out
-                 hover:bg-purple-700 hover:scale-110
-                 active:scale-90 active:bg-purple-800
-                 focus:outline-none focus:ring-4 focus:ring-purple-400/60
-                 animate-pulse-soft"
+              className="absolute bottom-4 right-4 w-10 h-10 pixel-button text-sm animate-pulse-soft"
             >
               →
             </button>
@@ -113,7 +101,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
           {!lift && (
             <button
               onClick={handleSkip}
-              className="absolute top-2 right-2 px-3 py-1 text-sm rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
+              className="absolute top-2 right-2 px-3 py-1 pixel-button text-xs"
             >
               Skip
             </button>
@@ -335,9 +323,21 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
               </div>
             )}
           </div>
+
+          {/* Interpretation */}
+          <div className="bg-indigo-900/70 text-white px-10 py-8 rounded-2xl shadow-lg max-w-3xl text-center backdrop-blur-sm">
+            <h2
+              className="text-2xl font-semibold mb-4"
+              style={{ fontFamily: "font-pixel" }}
+            >
+              Interpretation
+            </h2>
+            <p className="text-lg leading-relaxed">
+              The meaning of your cards will appear here… (placeholder text).
+            </p>
+          </div>
         </div>
       )}
-
 
       {activeCard && (
         <div
@@ -383,16 +383,13 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
       <div className="bg-indigo-900/70 rounded-xl shadow-lg px-8 py-6 text-white max-w-2xl">
         <h2 className="text-2xl mb-4">The paths you chose:</h2>
         <ul className="list-disc text-left space-y-2">
-        {
-          choices.map((c, i) => (
+          {choices.map((c, i) => (
             <li key={i}>{c}</li>
-          ))
-        }
+          ))}
         </ul>
       </div>
 
       <ClaudeChat />
-
     </div>
   );
 }

@@ -12,12 +12,6 @@ function SelectPage({ dispatch }: SelectPageProps) {
   const [showChoices, setShowChoices] = useState(false);
   const [lift, setLift] = useState(false); // triggers float-up
 
-  const handleSkip = () => {
-    setTextIndex(dialogue.length - 1);
-    setLift(true);
-    setTimeout(() => setShowChoices(true), 1200);
-  };
-
   const dialogue = [
     "Now, in this enchanted workshop, you will choose a formation, the sacred layout of cards!",
     "Three-Cards Spread: Past, Present, Future. Quick, sharp, elegant, like a magician's coin trick.",
@@ -32,10 +26,15 @@ function SelectPage({ dispatch }: SelectPageProps) {
     if (!isLastLine) {
       setTextIndex((i) => i + 1);
     } else {
-      // final press → float up, then reveal spreads with fade-in
       setLift(true);
       setTimeout(() => setShowChoices(true), 1200);
     }
+  };
+
+  const handleSkip = () => {
+    setTextIndex(dialogue.length - 1);
+    setLift(true);
+    setTimeout(() => setShowChoices(true), 1200);
   };
 
   const handleSelect = (spreadID: number) => {
@@ -43,7 +42,7 @@ function SelectPage({ dispatch }: SelectPageProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen animate-fadeIn">
+    <div className="flex flex-col items-center justify-center min-h-screen font-pixel animate-fadeIn">
       {/* Wizard + dialogue bubble */}
       <div
         className={`flex items-start gap-6 -translate-x-10 relative z-10 ${
@@ -63,17 +62,15 @@ function SelectPage({ dispatch }: SelectPageProps) {
         {/* Dialogue bubble */}
         <div className="relative w-[560px] h-[240px] bg-indigo-800 text-white rounded-3xl p-6 shadow-2xl border border-purple-400/70">
           <div className="h-full pr-14">
-            <p
-              className="h-[200px] overflow-y-auto text-2xl leading-relaxed tracking-wide font-light"
-              style={{ fontFamily: '"Cinzel Decorative", cursive' }}
-            >
+            <p className="h-[200px] overflow-y-auto text-lg leading-relaxed tracking-wide text-left">
               <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
+
             {/* Skip button */}
             {!lift && (
               <button
                 onClick={handleSkip}
-                className="absolute top-2 right-2 px-3 py-1 text-sm rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
+                className="absolute top-2 right-2 px-3 py-1 text-xs rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
               >
                 Skip
               </button>
@@ -83,17 +80,17 @@ function SelectPage({ dispatch }: SelectPageProps) {
           {/* Tail */}
           <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
-          {/* Next button (visible even on last line; hides after lift) */}
+          {/* Next button */}
           {!lift && (
             <button
               onClick={handleNext}
               aria-label="Next"
-              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-purple-600 text-white shadow-lg
+              className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-purple-600 text-white shadow-lg
                  transition transform duration-150 ease-out
                  hover:bg-purple-700 hover:scale-110
                  active:scale-90 active:bg-purple-800
                  focus:outline-none focus:ring-4 focus:ring-purple-400/60
-                 animate-pulse-soft"
+                 animate-pulse-soft text-sm"
             >
               →
             </button>
@@ -103,19 +100,16 @@ function SelectPage({ dispatch }: SelectPageProps) {
 
       {/* Spread choices (fade-in after float-up) */}
       {showChoices && (
-        <div className="animate-fadeIn h-50 -mt-50">
-          <p
-            className="mt-50 mb-6 text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 drop-shadow-lg"
-            style={{ fontFamily: '"Cinzel Decorative", cursive' }}
-          >
+        <div className="animate-fadeIn h-50 -mt-50 text-center">
+          <p className="mb-6 text-xl mt-50 font-bold text-white drop-shadow-lg">
             Choose your spread to begin
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 justify-center">
             {["Three-Card Spread", "Compass Spread", "V Spread"].map(
               (spreadName, idx) => (
                 <button
                   key={idx}
-                  className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-6 py-3 text-lg font-bold rounded-lg shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
                   onClick={() => handleSelect(idx + 1)}
                 >
                   {spreadName}

@@ -3,6 +3,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 @custom-variant dark (&:is(.dark *));
+@keyframes slideDownBounce {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animate-slideDownBounce {
+  animation: slideDownBounce 1s ease-out forwards;
+}
+
+@keyframes choicePop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-choicePop {
+  animation: choicePop 0.4s ease-out forwards;
+}
 
 @theme {
   --color-button-color: #7212cc;
@@ -122,6 +155,10 @@
   font-family: "Press Start 2P", monospace; /* retro pixel font if available */
   box-shadow: 0 0 0 6px #1e1b4b inset, /* inner dark frame */ 6px 6px 0 #000,
     /* pixel drop shadow */ -6px -6px 0 #000 inset; /* pixel highlight */
+}
+
+.font-pixel {
+  font-family: "Press Start 2P", cursive;
 }
 
 .pixel-button {
