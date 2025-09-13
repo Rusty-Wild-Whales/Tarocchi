@@ -3,15 +3,17 @@ import { type GameAction } from "../customHooks/gameReducer";
 
 type ScenePageProps = {
   dispatch: React.Dispatch<GameAction>;
+  id: number | null;
 };
 
-function ScenePage({ dispatch }: ScenePageProps) {
+function ScenePage({ dispatch, id }: ScenePageProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold mb-6">Tarot Game</h1>
       <p className="mb-4">Choose your spread to begin:</p>
 
       <div className="flex flex-col gap-3 bg-red-300">THIS_IS_THE_SCENE_PAGE</div>
+      <div className="flex flex-col gap-3 bg-red-300">WITH_SPREAD_NUMBER {id}</div>
     </div>
   );
 }
