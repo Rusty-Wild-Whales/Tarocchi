@@ -116,7 +116,7 @@ function StartPage({ dispatch }: StartPageProps) {
       {/* Begin button (appears after float-up, with fade-in) */}
       {showChoices && (
         <button
-          className="mt-12 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-10 py-4 text-2xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn"
+          className="-mt-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-10 py-4 text-2xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn"
           onClick={handleStart}
         >
           Begin the Reading

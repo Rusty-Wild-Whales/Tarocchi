@@ -103,9 +103,9 @@ function SelectPage({ dispatch }: SelectPageProps) {
 
       {/* Spread choices (fade-in after float-up) */}
       {showChoices && (
-        <div className="animate-fadeIn">
+        <div className="animate-fadeIn h-50 -mt-50">
           <p
-            className="mt-12 mb-6 text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 drop-shadow-lg"
+            className="mt-50 mb-6 text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 drop-shadow-lg"
             style={{ fontFamily: '"Cinzel Decorative", cursive' }}
           >
             Choose your spread to begin
