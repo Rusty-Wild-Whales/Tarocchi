@@ -35,8 +35,8 @@ function CaveScenePage({ dispatch, spread, idx }: SceneProps) {
             key={i}
             className="absolute w-2 h-2 bg-cyan-300 rounded-sm"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 95}%`,
+              left: `${Math.random() * 95}%`,
               animation: `pulse-soft ${1 + Math.random() * 4}s infinite`,
             }}
           />

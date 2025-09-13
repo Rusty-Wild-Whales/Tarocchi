@@ -35,8 +35,8 @@ function RuralScenePage({ dispatch, spread, idx }: SceneProps) {
             key={i}
             className="absolute w-2 h-2 bg-lime-300 rounded-full animate-pulse-soft"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 95}%`,
+              left: `${Math.random() * 95}%`,
               animationDelay: `${Math.random() * 5}s`,
             }}
           />

@@ -36,8 +36,8 @@ function CastleScenePage({ dispatch, spread, idx }: SceneProps) {
             key={i}
             className="absolute w-2 h-6 bg-orange-400/70 rounded-sm"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 95}%`,
+              left: `${Math.random() * 95}%`,
               animation: `blink ${1 + Math.random() * 2}s infinite`,
             }}
           />
