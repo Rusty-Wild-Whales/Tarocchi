@@ -16,7 +16,7 @@ function PromptPage({ dispatch }: PromptPageProps) {
   const dialogue = [
     "Ah, traveler, before the cards can whisper their secrets, you must whisper yours.",
     "Speak the question that burns brightest in your heart…",
-    "Do not fear. Tarrochi listens, and your words will shape the path ahead.",
+    "Do not fear. Tarocchi listens, and your words will shape the path ahead.",
   ];
 
   const isLastLine = textIndex >= dialogue.length - 2;

@@ -32,8 +32,8 @@ function StartPage({ dispatch }: StartPageProps) {
   ];
 
   const dialogue = [
-    "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
-    "I, Maestro Tarrochi, your humble wizard, shall guide you into the realm where past and future entwine…",
+    "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot shall be reborn in glowing light!!",
+    "I, Maestro Tarocchi, your humble wizard, shall guide you into the realm where past and future entwine…",
   ];
 
   const isLastLine = textIndex >= dialogue.length - 1;
