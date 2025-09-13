@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-button-color: #7212cc;
+  --color-text-color: #ebdbff;
+  --color-box-color: #6a329f;
+  --color-border-color: #58078c;
+}
+
 body {
   @apply m-0 flex place-items-center min-w-[320px] min-h-[100vh] bg-purple-950 text-center;
 }
