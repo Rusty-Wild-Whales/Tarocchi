@@ -79,24 +79,15 @@ function SelectPage({ dispatch }: SelectPageProps) {
         Choose your spread to begin
       </p>
       <div className="flex gap-6">
-        <button
-          className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
-          onClick={() => handleSelect(3)}
-        >
-          Three-Card Spread
-        </button>
-        <button
-          className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
-          onClick={() => handleSelect(4)}
-        >
-          Compass Spread
-        </button>
-        <button
-          className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
-          onClick={() => handleSelect(5)}
-        >
-          V Spread
-        </button>
+        {["Three-Card Spread", "Compass Spread", "V Spread"].map((spreadName, idx) => (
+          <button
+            key={idx}
+            className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
+            onClick={() => handleSelect(idx + 1)}
+          >
+            {spreadName}
+          </button>
+        ))}
       </div>
     </div>
   );
