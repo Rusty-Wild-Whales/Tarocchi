@@ -84,58 +84,60 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Wizard + dialogue bubble */}
-      <div
-        className={`flex items-start gap-6 -translate-x-10 relative z-10 ${
-          lift ? "animate-floatUpFadeOut" : ""
-        } font-pixel`}
-      >
-        {/* Wizard */}
-        <div className="relative">
-          <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full" />
-          <img
-            src={wizardImage}
-            alt="wizard"
-            className="relative w-96 h-auto flex-shrink-0 animate-floatSway cursor-pointer"
-          />
-        </div>
-
-        {/* Dialogue bubble → pixel-box */}
-        <div className="relative w-[560px] h-[240px] pixel-box px-8 py-6 shadow-2xl animate-slideDownBounce">
-          <div className="h-full pr-14">
-            <p className="h-[200px] overflow-y-auto text-lg leading-relaxed text-left">
-              <TypewriterText text={dialogue[textIndex]} speed={1} />
-            </p>
+      {!showResults && (
+        <div
+          className={`flex items-start gap-6 -translate-x-10 relative z-10 ${
+            lift ? "animate-floatUpFadeOut" : ""
+          } font-pixel`}
+        >
+          {/* Wizard */}
+          <div className="relative">
+            <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full" />
+            <img
+              src={wizardImage}
+              alt="wizard"
+              className="relative w-96 h-auto flex-shrink-0 animate-floatSway cursor-pointer"
+            />
           </div>
 
-          {/* Next button */}
-          {!lift && (
-            <button
-              onClick={handleNext}
-              aria-label="Next"
-              className="absolute bottom-4 right-4 w-10 h-10 pixel-button text-sm animate-pulse-soft"
-            >
-              →
-            </button>
-          )}
+          {/* Dialogue bubble → pixel-box */}
+          <div className="relative w-[560px] h-[240px] pixel-box px-8 py-6 shadow-2xl animate-slideDownBounce">
+            <div className="h-full pr-14">
+              <p className="h-[200px] overflow-y-auto text-lg leading-relaxed text-left">
+                <TypewriterText text={dialogue[textIndex]} speed={1} />
+              </p>
+            </div>
 
-          {/* Skip button */}
-          {!lift && (
-            <button
-              onClick={handleSkip}
-              className="absolute top-2 right-2 px-3 py-1 pixel-button text-xs"
-            >
-              Skip
-            </button>
-          )}
+            {/* Next button */}
+            {!lift && (
+              <button
+                onClick={handleNext}
+                aria-label="Next"
+                className="absolute bottom-4 right-4 w-10 h-10 pixel-button text-sm animate-pulse-soft"
+              >
+                →
+              </button>
+            )}
+
+            {/* Skip button */}
+            {!lift && (
+              <button
+                onClick={handleSkip}
+                className="absolute top-2 right-2 px-3 py-1 pixel-button text-xs"
+              >
+                Skip
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Results */}
       {showResults && (
         <div className="mt-6 flex flex-col items-center space-y-10 animate-centerRiseUp">
           {prompt && (
-            <div className="bg-purple-900/70 text-white px-10 py-6 rounded-xl shadow-lg max-w-2xl mb-6">
-              <p className="text-lg italic">Your question:</p>
+            <div className="mt-20 bg-purple-900/70 font-pixel text-white px-10 py-6 rounded-xl shadow-lg max-w-2xl mb-6">
+              <p className="text-3xl italic text-bold">Your question:</p>
               <p className="mt-2 text-xl">{prompt}</p>
             </div>
           )}
@@ -349,7 +351,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
         </div>
       )}
 
-      <div className="bg-indigo-900/70 rounded-xl shadow-lg px-8 py-6 text-white max-w-2xl">
+      <div className="bg-indigo-900/70 font-pixel rounded-xl shadow-lg px-8 py-6 text-white max-w-2xl">
         <h2 className="text-2xl mb-4">The paths you chose:</h2>
         <ul className="list-disc text-left space-y-2">
           {choices.map((c, i) => (
@@ -358,14 +360,13 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
         </ul>
       </div>
 
-      <ClaudeChat 
-        dispatch = {dispatch}
-        choices = {choices}
-        prompt = {prompt}
-        spread = {spread}
-        cards = {cards}
-        />
-
+      <ClaudeChat
+        dispatch={dispatch}
+        choices={choices}
+        prompt={prompt}
+        spread={spread}
+        cards={cards}
+      />
     </div>
   );
 }

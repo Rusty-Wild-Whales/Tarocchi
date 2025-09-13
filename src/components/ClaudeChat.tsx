@@ -128,7 +128,7 @@ const ClaudeChat: React.FC<ResultPageProps> = ({
         5. Practical guidance and next steps
 
         Be mystical yet grounded, intuitive yet logical, mysterious yet helpful.
-        
+
         The question the user has asked is ${prompt}.
         The choices the user made are ${choices.join(", ")}.
         There are ${spread + 2} cards in the formation.
@@ -204,7 +204,6 @@ const ClaudeChat: React.FC<ResultPageProps> = ({
                   backgroundColor: "#6a329f",
                   border: "1px solid #58078c",
                   borderRadius: "8px",
-                  maxHeight: "400px",
                   overflowY: "auto",
                 }}
               >
