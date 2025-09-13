@@ -367,28 +367,21 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
               />
             </div>
 
-            {/* Right: Text (2/3), flush right with slight background */}
+            {/* Right: Text (2/3), flush right with pixelated box */}
             <div className="w-2/3 flex flex-col justify-center items-end pl-8">
-              <div className="bg-indigo-900/70 px-8 py-6 rounded-xl shadow-lg max-w-full text-white">
-                <h2
-                  className="text-2xl font-bold mb-4 text-left"
-                  style={{ fontFamily: '"Cinzel Decorative", cursive' }}
-                >
-                  Card Interpretation
-                </h2>
-                <p className="text-base leading-relaxed text-justify opacity-90">
+              <div className="pixel-box max-w-full text-white">
+                <h2 className="text-4xl mb-4 text-left">Card Meaning</h2>
+                <p className="text-1xl leading-relaxed text-justify">
                   Placeholder meaning of the card. This is where the mystical
-                  insights about this specific tarot card will be displayed. The
-                  text is neatly justified for readability and sits inside a
-                  soft background panel to keep it clear without overwhelming
-                  the screen.
+                  insights about this tarot card will be displayed. The panel
+                  has a pixel-art frame and blocky styling for a retro vibe.
                 </p>
-                <div className="flex justify-end">
+                <div className="flex justify-end mt-6">
                   <button
                     onClick={() => setActiveCard(null)}
-                    className="mt-6 px-5 py-2 rounded-md bg-purple-700 hover:bg-purple-800 transition text-sm font-medium"
+                    className="pixel-button text-sm"
                   >
-                    Close
+                    CLOSE
                   </button>
                 </div>
               </div>
