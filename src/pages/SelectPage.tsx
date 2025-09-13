@@ -1,5 +1,6 @@
 import React from "react";
 import { type GameAction } from "../customHooks/gameReducer";
+import WizardAndText from "../components/WizardAndText";
 
 type SelectPageProps = {
   dispatch: React.Dispatch<GameAction>;
@@ -12,6 +13,7 @@ function StartPage({ dispatch }: SelectPageProps) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
+      <WizardAndText />
       <p className="mb-4">Choose your spread to begin:</p>
 
       <div className="flex gap-3">

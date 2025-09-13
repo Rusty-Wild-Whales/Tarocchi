@@ -14,7 +14,7 @@ function App() {
     case "spread":
       return <SelectPage dispatch={dispatch} />;
     case "scene":
-      return <ScenePage dispatch={dispatch} id={state.spread} />;
+      return <ScenePage dispatch={dispatch} spread={state.spread} idx={state.sceneIndex} />;
     case "result":
       return <ResultPage dispatch={dispatch} />;
     default:
