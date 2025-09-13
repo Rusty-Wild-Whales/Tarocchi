@@ -43,7 +43,7 @@ function App() {
       return (
         <ResultPage
           dispatch={dispatch}
-          choices={state.choices.toString()}
+          choices={state.choices}
           prompt={state.prompt}
           spread={state.spread}
         />

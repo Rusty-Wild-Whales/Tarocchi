@@ -3,10 +3,12 @@ import { type GameAction } from "../customHooks/gameReducer";
 import wizardImage from "../assets/wizard.png";
 import { TypewriterText } from "../components/TypeWriter";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card";
+import ClaudeChat from "../components/ClaudeChat";
+
 
 type ResultPageProps = {
   dispatch: React.Dispatch<GameAction>;
-  choices: string;
+  choices: string[];
   prompt?: string;
   spread: number; // ✅ add spread
 };
@@ -333,21 +335,9 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
               </div>
             )}
           </div>
-
-          {/* Interpretation */}
-          <div className="bg-indigo-900/70 text-white px-10 py-8 rounded-2xl shadow-lg max-w-3xl text-center backdrop-blur-sm">
-            <h2
-              className="text-2xl font-semibold mb-4"
-              style={{ fontFamily: '"Cormorant Garamond", serif' }}
-            >
-              Interpretation
-            </h2>
-            <p className="text-lg leading-relaxed">
-              The meaning of your cards will appear here… (placeholder text).
-            </p>
-          </div>
         </div>
       )}
+
 
       {activeCard && (
         <div
@@ -389,6 +379,20 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
           </div>
         </div>
       )}
+
+      <div className="bg-indigo-900/70 rounded-xl shadow-lg px-8 py-6 text-white max-w-2xl">
+        <h2 className="text-2xl mb-4">The paths you chose:</h2>
+        <ul className="list-disc text-left space-y-2">
+        {
+          choices.map((c, i) => (
+            <li key={i}>{c}</li>
+          ))
+        }
+        </ul>
+      </div>
+
+      <ClaudeChat />
+
     </div>
   );
 }
