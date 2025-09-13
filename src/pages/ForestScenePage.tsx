@@ -57,6 +57,7 @@ function ForestScenePage({ dispatch, spread, idx }: SceneProps) {
     },
   ];
 
+  // Pick one random prompt and 3 random choices each render
   const { prompt, choices } = useMemo(() => {
     const p = prompts[Math.floor(Math.random() * prompts.length)];
     const shuffled = [...p.choices].sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -78,21 +79,27 @@ function ForestScenePage({ dispatch, spread, idx }: SceneProps) {
 
       {/* Fireflies */}
       <div className="fixed inset-0 pointer-events-none z-10">
-        {Array.from({ length: 35 }).map((_, i) => (
+        {Array.from({ length: 100 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-emerald-300 animate-fireflyDrift animate-fireflyBlink"
+            className="absolute rounded-full animate-fireflyDrift animate-fireflyBlink"
             style={{
+              width: `${1 + Math.random() * 3}px`,
+              height: `${1 + Math.random() * 3}px`,
               top: `${Math.random() * 95}%`,
               left: `${Math.random() * 95}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${4 + Math.random() * 6}s`,
+              backgroundColor: "rgba(167, 243, 208, 0.9)", // emerald glow
+              animationDuration: `${3 + Math.random() * 5}s, ${
+                2 + Math.random() * 3
+              }s`,
+              animationDelay: `${Math.random() * 5}s, ${Math.random() * 2}s`,
+              filter: "drop-shadow(0 0 6px rgba(167,243,208,0.8))",
             }}
           />
         ))}
       </div>
 
-      {/* Content */}
+      {/* Main content */}
       <div className="relative z-20 flex flex-col items-center justify-between min-h-screen py-10">
         {/* Prompt */}
         <div className="animate-slideDownBounce">

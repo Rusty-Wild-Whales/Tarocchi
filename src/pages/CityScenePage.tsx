@@ -76,18 +76,26 @@ function CityScenePage({ dispatch }: SceneProps) {
 
       {/* Neon sparks */}
       <div className="fixed inset-0 pointer-events-none z-10">
-        {Array.from({ length: 50 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-fuchsia-400 rounded-full animate-fireflyDrift animate-fireflyBlink"
-            style={{
-              top: `${Math.random() * 95}%`,
-              left: `${Math.random() * 95}%`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-              animationDelay: `${Math.random() * 4}s`,
-            }}
-          />
-        ))}
+        {Array.from({ length: 100 }).map((_, i) => {
+          const colors = ["#f0abfc", "#a78bfa", "#f472b6"];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return (
+            <div
+              key={i}
+              className="absolute rounded-full animate-neonFlicker animate-neonDrift"
+              style={{
+                width: `${Math.random() * 3 + 2}px`,
+                height: `${Math.random() * 3 + 2}px`,
+                top: `${Math.random() * 95}%`,
+                left: `${Math.random() * 95}%`,
+                color: color,
+                background: color,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${4 + Math.random() * 6}s`,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="relative z-20 flex flex-col items-center justify-between min-h-screen py-10">

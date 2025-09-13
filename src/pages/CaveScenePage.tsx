@@ -76,18 +76,24 @@ function CaveScenePage({ dispatch }: SceneProps) {
 
       {/* Glowing crystals */}
       <div className="fixed inset-0 pointer-events-none z-10">
-        {Array.from({ length: 40 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-3 h-3 bg-cyan-300 animate-crystalGlow"
-            style={{
-              top: `${Math.random() * 95}%`,
-              left: `${Math.random() * 95}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-            }}
-          />
-        ))}
+        {Array.from({ length: 40 }).map((_, i) => {
+          const colors = ["#06b6d4", "#3b82f6", "#a855f7", "#22d3ee"];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return (
+            <div
+              key={i}
+              className="absolute w-3.5 h-3.5 animate-crystalGlow"
+              style={{
+                top: `${Math.random() * 95}%`,
+                left: `${Math.random() * 95}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                color: color,
+                background: `linear-gradient(135deg, ${color}, white)`,
+                clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="relative z-20 flex flex-col items-center justify-between min-h-screen py-10">

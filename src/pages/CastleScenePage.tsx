@@ -74,7 +74,7 @@ function CastleScenePage({ dispatch }: SceneProps) {
       />
       <div className="fixed inset-0 bg-indigo-950/50 z-0" />
 
-      {/* Flickering torches */}
+      {/* Torches */}
       <div className="fixed inset-0 pointer-events-none z-10">
         {Array.from({ length: 30 }).map((_, i) => (
           <div
