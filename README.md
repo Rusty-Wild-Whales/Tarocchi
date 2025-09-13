@@ -1,6 +1,8 @@
 # Tarocchi
 
-![tarocchi](./src/assets/wizard.png)
+<p align="center">
+  <img width="600" src="https://raw.githubusercontent.com/rusty-wild-whales/tarocchi/main/src/assets/wizard.png">
+</p>
 
 Project setup:
 
