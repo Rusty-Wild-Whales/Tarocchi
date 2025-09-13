@@ -8,6 +8,7 @@ import CastleScenePage from "./pages/CastleScenePage";
 import RuralScenePage from "./pages/RuralScenePage";
 import CaveScenePage from "./pages/CaveScenePage";
 import CityScenePage from "./pages/CityScenePage";
+import PromptPage from "./pages/PromptPage";
 
 const sceneComponents: Record<string, React.FC<any>> = {
   forest: ForestScenePage,
@@ -25,6 +26,8 @@ function App() {
       return <StartPage dispatch={dispatch} />;
     case "spread":
       return <SelectPage dispatch={dispatch} />;
+    case "prompt":
+      return <PromptPage dispatch={dispatch} />;
     case "scene": {
       const sceneKey = state.sceneOrder?.[state.sceneIndex] || "forest";
       const SceneComponent = sceneComponents[sceneKey];
@@ -38,7 +41,11 @@ function App() {
     }
     case "result":
       return (
-        <ResultPage dispatch={dispatch} choices={state.choices.toString()} />
+        <ResultPage
+          dispatch={dispatch}
+          choices={state.choices.toString()}
+          prompt={state.prompt}
+        />
       );
     default:
       return null;

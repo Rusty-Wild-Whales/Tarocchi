@@ -11,14 +11,29 @@ type StartPageProps = {
 function StartPage({ dispatch }: StartPageProps) {
   const [textIndex, setTextIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showChoices, setShowChoices] = useState(false);
+  const [lift, setLift] = useState(false); // triggers float-up
+  const handleSkip = () => {
+    setTextIndex(dialogue.length - 1);
+    setLift(true);
+    setTimeout(() => setShowChoices(true), 1200);
+  };
 
   const dialogue = [
     "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
-    "I, Maestro Tarocchi, your humble wizard, shall guide you into the realm where past and future entwine…",
+    "I, Maestro Tarrochi, your humble wizard, shall guide you into the realm where past and future entwine…",
   ];
 
+  const isLastLine = textIndex >= dialogue.length - 1;
+
   const handleNext = () => {
-    if (textIndex < dialogue.length - 1) setTextIndex((i) => i + 1);
+    if (!isLastLine) {
+      setTextIndex((i) => i + 1);
+    } else {
+      // final press → float up, then show button with fade-in
+      setLift(true);
+      setTimeout(() => setShowChoices(true), 1200);
+    }
   };
 
   const handleStart = () => {
@@ -26,11 +41,8 @@ function StartPage({ dispatch }: StartPageProps) {
   };
 
   const toggleMusic = () => {
-    if (isPlaying) {
-      MusicPlayer.stop();
-    } else {
-      MusicPlayer.play();
-    }
+    if (isPlaying) MusicPlayer.stop();
+    else MusicPlayer.play();
     setIsPlaying(!isPlaying);
   };
 
@@ -44,8 +56,13 @@ function StartPage({ dispatch }: StartPageProps) {
         {isPlaying ? "🔊" : "🔇"}
       </button>
 
-      <div className="flex items-start space-x-6 -translate-x-10">
-        {/* Wizard*/}
+      {/* Wizard + dialogue bubble */}
+      <div
+        className={`flex items-start space-x-6 -translate-x-10 relative z-10 ${
+          lift ? "animate-floatUp" : ""
+        }`}
+      >
+        {/* Wizard */}
         <div className="relative">
           <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full" />
           <img
@@ -55,7 +72,7 @@ function StartPage({ dispatch }: StartPageProps) {
           />
         </div>
 
-        {/* Speech bubble */}
+        {/* Dialogue bubble */}
         <div className="relative w-[560px] h-[220px] bg-indigo-800 text-white rounded-3xl p-6 shadow-2xl border border-purple-400/70">
           <div className="h-full pr-14">
             <p
@@ -64,22 +81,31 @@ function StartPage({ dispatch }: StartPageProps) {
             >
               <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
+            {/* Skip button */}
+            {!lift && (
+              <button
+                onClick={handleSkip}
+                className="absolute top-2 right-2 px-3 py-1 text-sm rounded-md bg-purple-700/80 text-white hover:bg-purple-800 transition"
+              >
+                Skip
+              </button>
+            )}
           </div>
 
           {/* Tail */}
           <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
-          {/* Next button */}
-          {textIndex < dialogue.length - 1 && (
+          {/* Next button (stays visible on last line; hides only after lift) */}
+          {!lift && (
             <button
               onClick={handleNext}
               aria-label="Next"
               className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-purple-600 text-white shadow-lg
-             transition transform duration-150 ease-out
-             hover:bg-purple-700 hover:scale-110
-             active:scale-90 active:bg-purple-800
-             focus:outline-none focus:ring-4 focus:ring-purple-400/60
-             animate-pulse-soft"
+                 transition transform duration-150 ease-out
+                 hover:bg-purple-700 hover:scale-110
+                 active:scale-90 active:bg-purple-800
+                 focus:outline-none focus:ring-4 focus:ring-purple-400/60
+                 animate-pulse-soft"
             >
               →
             </button>
@@ -87,13 +113,15 @@ function StartPage({ dispatch }: StartPageProps) {
         </div>
       </div>
 
-      {/* Start button */}
-      <button
-        className="mt-12 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-10 py-4 text-2xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
-        onClick={handleStart}
-      >
-        Begin the Reading
-      </button>
+      {/* Begin button (appears after float-up, with fade-in) */}
+      {showChoices && (
+        <button
+          className="mt-12 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-10 py-4 text-2xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn"
+          onClick={handleStart}
+        >
+          Begin the Reading
+        </button>
+      )}
     </div>
   );
 }

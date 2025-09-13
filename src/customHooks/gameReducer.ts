@@ -2,16 +2,19 @@ import { useReducer } from "react";
 
 export type GameState = {
   sceneOrder: any;
-  stage: "land" | "spread" | "scene" | "result";
+  stage: "land" | "spread" | "prompt" | "scene" | "result";
   spread: number;
   sceneIndex: number;
   choices: string[];
+  prompt?: string;
 };
 
 export type GameAction =
   | { type: "LANDING" }
   | { type: "SET_SPREAD"; spread: number }
+  | { type: "SET_PROMPT"; text: string }
   | { type: "NEXT_SCENE"; choice: string }
+  | { type: "BEGIN_SCENES" }
   // | { type: "SET_CARDS"; cards: TarotCard[] }
   | { type: "SET_INTERPRETATION"; text: string }
   | { type: "RESULT" };
@@ -53,9 +56,22 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       return {
         ...state,
         spread: action.spread,
-        stage: "scene",
+        stage: "prompt",
         sceneIndex: 0,
         sceneOrder: order,
+        choices: [],
+      };
+    }
+
+    case "SET_PROMPT":
+      return { ...state, prompt: action.text };
+    case "BEGIN_SCENES": {
+      const order = getSceneOrder(state.spread);
+      return {
+        ...state,
+        stage: "scene",
+        sceneOrder: order,
+        sceneIndex: 0,
         choices: [],
       };
     }
