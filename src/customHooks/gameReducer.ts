@@ -3,7 +3,7 @@ import { useReducer } from "react";
 export type GameState = {
   sceneOrder: any;
   stage: "land" | "spread" | "prompt" | "scene" | "result";
-  spread: number;
+  spread: 1 | 2 | 3;
   sceneIndex: number;
   choices: string[];
   prompt?: string;
@@ -11,7 +11,7 @@ export type GameState = {
 
 export type GameAction =
   | { type: "LANDING" }
-  | { type: "SET_SPREAD"; spread: number }
+  | { type: "SET_SPREAD"; spread: 1 | 2 | 3 }
   | { type: "SET_PROMPT"; text: string }
   | { type: "NEXT_SCENE"; choice: string }
   | { type: "BEGIN_SCENES" }
@@ -21,7 +21,7 @@ export type GameAction =
 
 const initialState: GameState = {
   stage: "land",
-  spread: 0,
+  spread: 1,
   sceneIndex: 0,
   choices: [],
   sceneOrder: undefined,
@@ -33,7 +33,7 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-function getSceneOrder(spread: number): string[] {
+function getSceneOrder(spread: 1 | 2 | 3): string[] {
   switch (spread) {
     case 1:
       return shuffle(allScenes).slice(0, 3); // three-card
@@ -41,8 +41,6 @@ function getSceneOrder(spread: number): string[] {
       return shuffle(allScenes).slice(0, 4); // compass
     case 3:
       return shuffle(allScenes).slice(0, 5); // v spread
-    default:
-      return [];
   }
 }
 
