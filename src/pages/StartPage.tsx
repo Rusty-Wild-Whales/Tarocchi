@@ -15,8 +15,6 @@ function StartPage({ dispatch }: StartPageProps) {
   const dialogue = [
     "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
     "I, Maestro Tarocchi, your humble wizard, shall guide you into the realm where past and future entwine…",
-    "Now, you may ask yourself, what are these Tarot cards I boast of?",
-    "Each card bears a symbol, and each symbol holds a thousand meanings!",
   ];
 
   const handleNext = () => {
@@ -47,7 +45,7 @@ function StartPage({ dispatch }: StartPageProps) {
       </button>
 
       <div className="flex items-start space-x-6 -translate-x-10">
-        {/* Wizard with aura */}
+        {/* Wizard*/}
         <div className="relative">
           <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full" />
           <img
@@ -64,7 +62,7 @@ function StartPage({ dispatch }: StartPageProps) {
               className="h-[200px] overflow-y-auto text-2xl leading-relaxed tracking-wide font-light"
               style={{ fontFamily: '"Cinzel Decorative", cursive' }}
             >
-              <TypewriterText text={dialogue[textIndex]} speed={25} />
+              <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
           </div>
 

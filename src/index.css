@@ -21,6 +21,104 @@
 .animate-pulse-soft {
   animation: pulse-soft 1.8s ease-in-out infinite;
 }
+/* Scene fade-in */
+@keyframes sceneFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-sceneFadeIn {
+  animation: sceneFadeIn 1.2s ease-out;
+}
+
+/* Fireflies */
+@keyframes fireflyDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-12px, -14px) scale(1.2);
+    opacity: 0.5;
+  }
+}
+.animate-fireflyDrift {
+  animation: fireflyDrift infinite alternate ease-in-out;
+}
+
+@keyframes fireflyBlink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-fireflyBlink {
+  animation: fireflyBlink infinite ease-in-out;
+}
+
+/* Textbox subtle sway + breathing */
+/* Renamed to avoid any 'floatSway' collisions */
+@keyframes textSwaySoft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+.animate-textSwaySoft {
+  animation: textSwaySoft 5s ease-in-out infinite;
+}
+
+@keyframes breatheSoft {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.005);
+  }
+}
+.animate-breatheSoft {
+  animation: breatheSoft 7s ease-in-out infinite;
+}
+
+/* Cards: gentle idle bob on a wrapper NOT controlled by 3D transforms */
+@keyframes cardBobIdle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+.animate-cardBobIdle {
+  animation: cardBobIdle 6s ease-in-out infinite;
+}
+
+/* Bottom stack fade-up */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeSlideUp {
+  animation: fadeSlideUp 1s ease-out forwards;
+}
 
 @keyframes float {
   0%,

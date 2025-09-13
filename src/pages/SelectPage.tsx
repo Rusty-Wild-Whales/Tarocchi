@@ -46,7 +46,7 @@ function SelectPage({ dispatch }: SelectPageProps) {
               className="h-[200px] overflow-y-auto text-2xl leading-relaxed tracking-wide font-light"
               style={{ fontFamily: '"Cinzel Decorative", cursive' }}
             >
-              <TypewriterText text={dialogue[textIndex]} speed={25} />
+              <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
           </div>
 
@@ -79,15 +79,17 @@ function SelectPage({ dispatch }: SelectPageProps) {
         Choose your spread to begin
       </p>
       <div className="flex gap-6">
-        {["Three-Card Spread", "Compass Spread", "V Spread"].map((spreadName, idx) => (
-          <button
-            key={idx}
-            className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
-            onClick={() => handleSelect(idx + 1)}
-          >
-            {spreadName}
-          </button>
-        ))}
+        {["Three-Card Spread", "Compass Spread", "V Spread"].map(
+          (spreadName, idx) => (
+            <button
+              key={idx}
+              className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
+              onClick={() => handleSelect(idx + 1)}
+            >
+              {spreadName}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
