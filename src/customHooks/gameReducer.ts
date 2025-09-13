@@ -10,9 +10,8 @@ export type GameState = {
 export type GameAction =
   | { type: "LANDING" }
   | { type: "SET_SPREAD"; spread: number }
-  | { type: "MAKE_CHOICE"; choice: string }
-  | { type: "NEXT_SCENE" }
-  | { type: "SET_CARDS"; cards: TarotCard[] }
+  | { type: "NEXT_SCENE"; choice: string }
+  // | { type: "SET_CARDS"; cards: TarotCard[] }
   | { type: "SET_INTERPRETATION"; text: string }
   | { type: "RESULT" };
 
@@ -29,9 +28,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, stage: "spread" };
     case "SET_SPREAD":
       return { ...state, spread: action.spread, stage: "scene" };
-    case "MAKE_CHOICE":
-      return { ...state, stage: "scene", sceneIndex: 0 };
     case "NEXT_SCENE":
+      console.log(state)
+      state = {...state, choices: [...state.choices, action.choice]}
       if (state.sceneIndex < state.spread + 1) {
         return { ...state, sceneIndex: state.sceneIndex + 1 };
       } else {

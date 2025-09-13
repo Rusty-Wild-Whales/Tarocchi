@@ -4,7 +4,6 @@ import StartPage from "./pages/StartPage";
 import SelectPage from "./pages/SelectPage";
 import ScenePage from "./pages/ScenePage";
 import ResultPage from "./pages/ResultPage";
-import ClaudeChat from "./components/ClaudeChat.tsx";
 
 function App() {
   const [state, dispatch] = useGameReducer();
@@ -15,9 +14,9 @@ function App() {
     case "spread":
       return <SelectPage dispatch={dispatch} />;
     case "scene":
-      return <ScenePage dispatch={dispatch} id={state.spread} />;
+      return <ScenePage dispatch={dispatch} spread={state.spread} idx={state.sceneIndex} />;
     case "result":
-      return <ResultPage dispatch={dispatch} />;
+      return <ResultPage dispatch={dispatch} choices={state.choices.toString()} />;
     default:
       return null;
   }

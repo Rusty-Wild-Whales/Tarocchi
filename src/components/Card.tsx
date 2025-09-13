@@ -1,41 +1,48 @@
-import React from "react";
-
 //Importing 3D card from https://ui.aceternity.com/components/3d-card-effect
 import { CardBody, CardContainer, CardItem } from "../components/ui/3d-card";
 
 //Imports images for tarot cards from folder
-const tarotCardsImages = import.meta.glob(
-  "../assets/PixelTarot/TarotCards/Major Arcana/*.png",
-  {
-    eager: true,
-  }
-);
+// const tarotCardsImages = import.meta.glob("../assets/PixelTarot/TarotCards/Major Arcana/*.png", {
+//   eager: true,
+// });
 
 //Adds tarot card images as its string value into an array.
-const tarotCardsArray = Object.values(tarotCardsImages).map(
-  (mod) => (mod as { default: string }).default
-);
+// const tarotCardsArray = Object.values(tarotCardsImages).map(
+//   (mod) => (mod as { default: string }).default
+// );
 
 //Card has a body which can hold multiple items. Cards and items have many attributes that can be altered.
 
 //Creates a container with an image at the first index of the tarot cards array.
-export function ThreeDCardDemo() {
+// export function ThreeDCardDemo() {
+//   return (
+//     <CardContainer className="inter-var">
+//       <CardBody className="w-auto h-auto rounded-xl p-0 border-0">
+//         <CardItem translateZ="100" className="w-full mt-4">
+//           <img
+//             src={tarotCardsArray[0]}
+//             className="h-90 w-45 object-cover rounded-md group-hover/card:shadow-xl"
+//             alt="thumbnail"
+//           />
+//         </CardItem>
+//       </CardBody>
+//     </CardContainer>
+//   );
+// }
+
+export function Card({ children }: any) {
   return (
-    <CardContainer className="inter-var">
-      <CardBody className="w-auto h-auto rounded-xl p-0 border-0">
-        <CardItem translateZ="100" className="w-full mt-4">
-          <img
-            src={tarotCardsArray[0]}
-            className="h-90 w-45 object-cover rounded-md group-hover/card:shadow-xl"
-            alt="thumbnail"
-          />
+    <CardContainer>
+      <CardBody className="max-h-[10em] rounded-xl bg-blue-300">
+        <CardItem translateZ="100" className="w-full h-full mt-4">
+          {children}
         </CardItem>
       </CardBody>
     </CardContainer>
   );
 }
 
-export default ThreeDCardDemo;
+export default Card;
 
 // import React from "react";
 // import { CardBody, CardContainer, CardItem } from "../components/ui/3d-card";
