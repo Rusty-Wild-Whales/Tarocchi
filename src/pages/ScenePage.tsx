@@ -28,8 +28,12 @@ function ScenePage({ dispatch, spread, idx }: ScenePageProps) {
         ))}
       </div>
 
-      <div className="flex flex-col gap-3 bg-red-300">THIS_IS_THE_SCENE_PAGE</div>
-      <div className="flex flex-col gap-3 bg-red-300">SPREAD_NUMBER {spread}</div>
+      <div className="flex flex-col gap-3 bg-red-300">
+        THIS_IS_THE_SCENE_PAGE
+      </div>
+      <div className="flex flex-col gap-3 bg-red-300">
+        SPREAD_NUMBER {spread}
+      </div>
       <div className="flex flex-col gap-3 bg-red-300">SCENE_IDX {idx}</div>
     </div>
   );

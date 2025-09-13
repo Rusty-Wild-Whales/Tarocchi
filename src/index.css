@@ -31,6 +31,19 @@
     transform: translateY(160px);
   }
 }
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
