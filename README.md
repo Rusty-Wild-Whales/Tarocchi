@@ -1,7 +1,7 @@
 # Tarocchi
 
 <p align="center">
-  <img width="600" src="https://raw.githubusercontent.com/rusty-wild-whales/tarocchi/main/src/assets/wizard.png">
+  <img width="600" src="https://raw.githubusercontent.com/rusty-wild-whales/tarocchi/main/src/assets/wizard.png" alt="tarocchi" />
 </p>
 
 Project setup:
@@ -17,7 +17,8 @@ $ # start another terminal
 $ cd ..
 $ pnpm dev
 $ # open localhost:5173 in the browser
+```
 
 ---
-```
+
 Credit to chee-seekins on itch.io for the Pixel Tarot collection!
