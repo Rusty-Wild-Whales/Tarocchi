@@ -14,10 +14,7 @@ function StartPage({ dispatch }: StartPageProps) {
     "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
     "I, Maestro Tarocchi, your humble wizard, shall guide you into the realm where past and future entwine…",
     "Now, you may ask yourself, what are these Tarot cards I boast of?",
-    "They are not mere painted slips of paper, oh no no; that would be an insult to the art of mysticism!",
-    "Each card bears a symbol, and each symbol holds a thousand meanings. Together, they weave stories of love, loss, triumph, and folly.",
-    "When a seeker draws the cards, they do not foretell a fixed future!",
-    "They illuminate possibilities. It is you who grants them life by asking the question.",
+    "Each card bears a symbol, and each symbol holds a thousand meanings!",
   ];
 
   const handleNext = () => {
@@ -72,8 +69,7 @@ function StartPage({ dispatch }: StartPageProps) {
 
       {/* Start button */}
       <button
-        className="mt-12 bg-purple-700 hover:bg-purple-900 text-white px-8 py-3 text-2xl font-bold rounded-xl shadow-lg tracking-wider
-                   transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
+        className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-6 py-3 text-xl font-bold rounded-xl shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40"
         onClick={handleStart}
       >
         Begin the Reading
