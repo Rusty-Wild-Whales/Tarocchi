@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { type GameAction } from "../customHooks/gameReducer";
 import wizardImage from "../assets/wizard.png";
+import MusicPlayer from "../components/MusicPlayer";
 
 type StartPageProps = {
   dispatch: React.Dispatch<GameAction>;
@@ -9,6 +10,7 @@ type StartPageProps = {
 function StartPage({ dispatch }: StartPageProps) {
   const handleStart = () => {
     dispatch({ type: "LANDING" });
+    MusicPlayer.play();
   };
 
   return (
@@ -20,7 +22,10 @@ function StartPage({ dispatch }: StartPageProps) {
             <p className="bg-blue-400">asdf</p>
           </div>
         </div>
-        <button className="bg-blue-500 hover:bg-blue-900 text-3xl" onClick={() => handleStart()}>
+        <button
+          className="bg-blue-500 hover:bg-blue-900 text-3xl"
+          onClick={() => handleStart()}
+        >
           StartPage
         </button>
       </div>

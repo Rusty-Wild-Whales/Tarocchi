@@ -7,14 +7,19 @@ import ResultPage from "./pages/ResultPage";
 
 function App() {
   const [state, dispatch] = useGameReducer();
-
   switch (state.stage) {
     case "land":
       return <StartPage dispatch={dispatch} />;
     case "spread":
       return <SelectPage dispatch={dispatch} />;
     case "scene":
-      return <ScenePage dispatch={dispatch} spread={state.spread} idx={state.sceneIndex} />;
+      return (
+        <ScenePage
+          dispatch={dispatch}
+          spread={state.spread}
+          idx={state.sceneIndex}
+        />
+      );
     case "result":
       return <ResultPage dispatch={dispatch} />;
     default:
