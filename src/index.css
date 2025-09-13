@@ -1,6 +1,138 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@keyframes caveParallax {
+  0% {
+    background-position: center top;
+  }
+  50% {
+    background-position: center bottom;
+  }
+  100% {
+    background-position: center top;
+  }
+}
+.animate-caveParallax {
+  animation: caveParallax 20s ease-in-out infinite;
+}
+/* Crystal shimmer */
+@keyframes crystalGlow {
+  0%,
+  100% {
+    transform: scale(1) rotate(45deg);
+    opacity: 0.7;
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+  50% {
+    transform: scale(1.6) rotate(45deg);
+    opacity: 1;
+    box-shadow: 0 0 16px currentColor, 0 0 32px currentColor,
+      0 0 48px currentColor;
+  }
+}
+.animate-crystalGlow {
+  animation: crystalGlow 2.5s ease-in-out infinite;
+}
+/* Background subtle parallax */
+@keyframes bgParallax {
+  0% {
+    background-position: center top;
+  }
+  50% {
+    background-position: center bottom;
+  }
+  100% {
+    background-position: center top;
+  }
+}
+.animate-bgParallax {
+  animation: bgParallax 30s ease-in-out infinite;
+}
+
+/* Prompt breathing + sway */
+@keyframes promptBreath {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+.animate-promptBreath {
+  animation: promptBreath 6s ease-in-out infinite;
+}
+
+/* Choice floating idle */
+@keyframes choiceFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.animate-choiceFloat {
+  animation: choiceFloat 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideLeft {
+  animation: slideLeft 0.6s ease-out forwards;
+}
+.animate-slideRight {
+  animation: slideRight 0.6s ease-out forwards;
+}
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out forwards;
+}
 
 @custom-variant dark (&:is(.dark *));
 @keyframes slideDownBounce {
@@ -218,6 +350,37 @@
   animation: fireflyBlink infinite ease-in-out;
 }
 
+/* Firefly wandering motion */
+@keyframes fireflyMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20px, -30px);
+  }
+  50% {
+    transform: translate(-15px, -60px);
+  }
+  75% {
+    transform: translate(-25px, 10px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Firefly blink (fades in/out) */
+@keyframes fireflyBlinkb {
+  0%,
+  20%,
+  100% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+}
+
 /* Textbox subtle sway + breathing */
 /* Renamed to avoid any 'floatSway' collisions */
 @keyframes textSwaySoft {
@@ -336,6 +499,77 @@
 
 body {
   @apply m-0 flex place-items-center min-w-[320px] min-h-[100vh] bg-purple-950 text-center bg-[url("bg.png")] bg-no-repeat bg-cover backdrop-brightness-60;
+}
+@keyframes neonFlicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor);
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+}
+
+@keyframes neonDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15px, -25px) scale(1.2);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-neonFlicker {
+  animation: neonFlicker 2.5s infinite;
+}
+.animate-neonDrift {
+  animation: neonDrift 6s ease-in-out infinite;
+}
+@keyframes ruralFireflyMove {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(15px, -25px) scale(1.2);
+  }
+  50% {
+    transform: translate(-20px, -40px) scale(1.1);
+  }
+  75% {
+    transform: translate(-15px, 10px) scale(1.3);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+.animate-ruralFireflyMove {
+  animation: ruralFireflyMove 7s ease-in-out infinite;
+}
+
+@keyframes ruralFireflyBlink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-ruralFireflyBlink {
+  animation: ruralFireflyBlink 4s ease-in-out infinite;
 }
 
 @theme inline {
