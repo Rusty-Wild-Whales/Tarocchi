@@ -45,6 +45,7 @@ function App() {
           dispatch={dispatch}
           choices={state.choices.toString()}
           prompt={state.prompt}
+          spread={state.spread}
         />
       );
     default:

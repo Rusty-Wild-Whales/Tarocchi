@@ -16,11 +16,57 @@
   }
   100% {
     transform: translateY(-80px);
-    opacity: 0.8;
+    opacity: 1;
   }
 }
 .animate-floatUp {
   animation: floatUp 1.2s ease-in-out forwards;
+}
+@keyframes floatUpFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+.animate-floatUpFadeOut {
+  animation: floatUpFadeOut 1.5s ease-in-out forwards;
+}
+@keyframes centerRiseUp {
+  0% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 1;
+  }
+}
+.animate-centerRiseUp {
+  animation: centerRiseUp 1.4s ease-out forwards;
+}
+
+@keyframes centerRise {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-centerRise {
+  animation: centerRise 1.2s ease-out forwards;
+}
+
+.cardHoverStrong:hover {
+  transform: scale(1.15) rotate(2deg);
+  filter: brightness(1.25) drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 @keyframes fadeIn {
@@ -60,6 +106,26 @@
 }
 .animate-sceneFadeIn {
   animation: sceneFadeIn 1.2s ease-out;
+}
+/* Overlay background blur */
+.overlayBg {
+  backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth modal fade-in */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-modalFadeIn {
+  animation: modalFadeIn 0.3s ease-out forwards;
 }
 
 /* Fireflies */
