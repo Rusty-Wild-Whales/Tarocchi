@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+body {
+  @apply m-0 flex place-items-center min-w-[320px] min-h-[100vh] bg-purple-950 text-center;
+}
