@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import backgroundMusic from "../assets/mystical song.wav";
 
 class MusicPlayer {
