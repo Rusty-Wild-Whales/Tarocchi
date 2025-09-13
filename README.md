@@ -67,3 +67,5 @@ export default tseslint.config([
   },
 ])
 ```
+
+Credit to chee-seekins on itch.io for the Pixel Tarot collection!
