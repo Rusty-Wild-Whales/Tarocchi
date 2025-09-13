@@ -4,6 +4,7 @@ import wizardImage from "../assets/wizard.png";
 import { TypewriterText } from "../components/TypeWriter";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card";
 import ClaudeChat from "../components/ClaudeChat";
+import cardMeanings from "../assets/cardMeanings";
 
 export type ResultPageProps = {
   dispatch: React.Dispatch<GameAction>;
@@ -13,13 +14,38 @@ export type ResultPageProps = {
 };
 
 // Import all tarot images dynamically
-const tarotCardsImages = import.meta.glob(
-  "../assets/PixelTarot/TarotCards2x/*.png",
-  { eager: true }
+const tarotCardsImages = import.meta.glob("../assets/PixelTarot/TarotCards2x/*.png", {
+  eager: true,
+});
+const path = Object.keys(tarotCardsImages).map((path) =>
+  path.split("/").pop()?.replace(".png", "")
 );
+console.log(path);
 const tarotCardsArray = Object.values(tarotCardsImages).map(
   (mod) => (mod as { default: string }).default
 );
+
+// function pathToName(path: string): string {
+//   let name = path.split("/").pop()?.replace(".png", "");
+//   let isReverse = false;
+//   if (name?.endsWith("_r")) {
+//     isReverse = true;
+//     name = name.replace("_r", "");
+//   }
+//   name = name == undefined ? "" : name;
+//   return cardMeanings[name].name;
+// }
+
+function pathToMeaning(path: string): string {
+  let name = path.split("/").pop()?.replace(".png", "");
+  let isReverse = false;
+  if (name?.endsWith("_r")) {
+    isReverse = true;
+    name = name.replace("_r", "");
+  }
+  name = name == undefined ? "" : name;
+  return cardMeanings[name].meaning;
+}
 
 function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
   const [textIndex, setTextIndex] = useState(0);
@@ -35,9 +61,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
   ];
 
   useEffect(() => {
-    let count = 3;
-    if (spread === 2) count = 4;
-    if (spread === 3) count = 5;
+    let count = spread + 2;
 
     const shuffled = [...tarotCardsArray].sort(() => Math.random() - 0.5);
     setCards(shuffled.slice(0, count));
@@ -154,11 +178,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                         className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                         onClick={() => setActiveCard(cards[0])}
                       >
-                        <img
-                          src={cards[0]}
-                          alt="Top"
-                          className="h-full w-auto object-contain"
-                        />
+                        <img src={cards[0]} alt="Top" className="h-full w-auto object-contain" />
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -173,11 +193,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                         className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                         onClick={() => setActiveCard(cards[1])}
                       >
-                        <img
-                          src={cards[1]}
-                          alt="Left"
-                          className="h-full w-auto object-contain"
-                        />
+                        <img src={cards[1]} alt="Left" className="h-full w-auto object-contain" />
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -192,11 +208,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                         className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                         onClick={() => setActiveCard(cards[2])}
                       >
-                        <img
-                          src={cards[2]}
-                          alt="Right"
-                          className="h-full w-auto object-contain"
-                        />
+                        <img src={cards[2]} alt="Right" className="h-full w-auto object-contain" />
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -211,11 +223,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                         className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                         onClick={() => setActiveCard(cards[3])}
                       >
-                        <img
-                          src={cards[3]}
-                          alt="Bottom"
-                          className="h-full w-auto object-contain"
-                        />
+                        <img src={cards[3]} alt="Bottom" className="h-full w-auto object-contain" />
                       </CardItem>
                     </CardBody>
                   </CardContainer>
@@ -236,11 +244,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                           className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                           onClick={() => setActiveCard(cards[0])}
                         >
-                          <img
-                            src={cards[0]}
-                            alt=""
-                            className="h-full w-auto object-contain"
-                          />
+                          <img src={cards[0]} alt="" className="h-full w-auto object-contain" />
                         </CardItem>
                       </CardBody>
                     </CardContainer>
@@ -254,11 +258,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                           className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                           onClick={() => setActiveCard(cards[3])}
                         >
-                          <img
-                            src={cards[3]}
-                            alt=""
-                            className="h-full w-auto object-contain"
-                          />
+                          <img src={cards[3]} alt="" className="h-full w-auto object-contain" />
                         </CardItem>
                       </CardBody>
                     </CardContainer>
@@ -273,11 +273,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                           className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                           onClick={() => setActiveCard(cards[1])}
                         >
-                          <img
-                            src={cards[1]}
-                            alt=""
-                            className="h-full w-auto object-contain"
-                          />
+                          <img src={cards[1]} alt="" className="h-full w-auto object-contain" />
                         </CardItem>
                       </CardBody>
                     </CardContainer>
@@ -291,11 +287,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                           className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                           onClick={() => setActiveCard(cards[4])}
                         >
-                          <img
-                            src={cards[4]}
-                            alt=""
-                            className="h-full w-auto object-contain"
-                          />
+                          <img src={cards[4]} alt="" className="h-full w-auto object-contain" />
                         </CardItem>
                       </CardBody>
                     </CardContainer>
@@ -310,11 +302,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                           className="w-full h-full flex items-center justify-center cardHoverStrong cursor-pointer"
                           onClick={() => setActiveCard(cards[2])}
                         >
-                          <img
-                            src={cards[2]}
-                            alt=""
-                            className="h-full w-auto object-contain"
-                          />
+                          <img src={cards[2]} alt="" className="h-full w-auto object-contain" />
                         </CardItem>
                       </CardBody>
                     </CardContainer>
@@ -322,6 +310,16 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Interpretation */}
+          <div className="bg-indigo-900/70 text-white px-10 py-8 rounded-2xl shadow-lg max-w-3xl text-center backdrop-blur-sm">
+            <h2 className="text-2xl font-semibold mb-4" style={{ fontFamily: "font-pixel" }}>
+              Interpretation
+            </h2>
+            <p className="text-lg leading-relaxed">
+              The meaning of your cards will appear here… (placeholder text).
+            </p>
           </div>
         </div>
       )}
@@ -337,30 +335,27 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
           >
             {/* Left: Card (1/3), flush left */}
             <div className="w-1/3 flex items-center justify-start">
-              <img
-                src={activeCard}
-                alt="Active Tarot Card"
-                className="h-[90%] object-contain"
-              />
+              <img src={activeCard} alt="Active Tarot Card" className="h-[90%] object-contain" />
             </div>
 
             {/* Right: Text (2/3), flush right with pixelated box */}
             <div className="w-2/3 flex flex-col justify-center items-end pl-8">
               <div className="pixel-box max-w-full text-white">
-                <h2 className="text-4xl mb-4 text-left">Card Meaning</h2>
-                <p className="text-1xl leading-relaxed text-justify">
-                  Placeholder meaning of the card. This is where the mystical
-                  insights about this tarot card will be displayed. The panel
-                  has a pixel-art frame and blocky styling for a retro vibe.
-                </p>
-                <div className="flex justify-end mt-6">
-                  <button
-                    onClick={() => setActiveCard(null)}
-                    className="pixel-button text-sm"
-                  >
-                    CLOSE
-                  </button>
-                </div>
+                {
+                  <>
+                    <h2 className="text-4xl mb-4 text-left">
+                      {activeCard.split("/").pop()?.replace(".png", "")}
+                    </h2>
+                    <p className="text-1xl leading-relaxed text-justify">
+                      {pathToMeaning(activeCard)}
+                    </p>
+                    <div className="flex justify-end mt-6">
+                      <button onClick={() => setActiveCard(null)} className="pixel-button text-sm">
+                        CLOSE
+                      </button>
+                    </div>
+                  </>
+                }
               </div>
             </div>
           </div>
@@ -376,13 +371,7 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
         </ul>
       </div>
 
-      <ClaudeChat 
-        dispatch = {dispatch}
-        choices = {choices}
-        prompt = {prompt}
-        spread = {spread}
-        />
-
+      <ClaudeChat dispatch={dispatch} choices={choices} prompt={prompt} spread={spread} />
     </div>
   );
 }
