@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { type GameAction } from "../customHooks/gameReducer";
 import wizardImage from "../assets/wizard.png";
 import { TypewriterText } from "../components/TypeWriter";
@@ -17,10 +17,6 @@ export type ResultPageProps = {
 const tarotCardsImages = import.meta.glob("../assets/PixelTarot/TarotCards2x/*.png", {
   eager: true,
 });
-const path = Object.keys(tarotCardsImages).map((path) =>
-  path.split("/").pop()?.replace(".png", "")
-);
-console.log(path);
 const tarotCardsArray = Object.values(tarotCardsImages).map(
   (mod) => (mod as { default: string }).default
 );
@@ -43,29 +39,29 @@ function pathToMeaning(path: string): string {
     isReverse = true;
     name = name.replace("_r", "");
   }
-  name = name == undefined ? "" : name;
-  return cardMeanings[name].meaning;
+  name = name ? name : "";
+  if (!isReverse) {
+    return cardMeanings[name].meaning;
+  } else {
+    return cardMeanings[name].meaningR;
+  }
 }
 
 function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
   const [textIndex, setTextIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [lift, setLift] = useState(false);
-  const [cards, setCards] = useState<string[]>([]);
+  const [cards, setCards] = useState(
+    [...tarotCardsArray].sort(() => Math.random() - 0.5).slice(0, spread + 2)
+  );
   const [activeCard, setActiveCard] = useState<string | null>(null);
+  console.log(cards);
 
   const dialogue = [
     "At last, traveler… the cards have spoken.",
     "Their wisdom is not always clear, but it is always true.",
     "Behold the symbols fate has chosen for you.",
   ];
-
-  useEffect(() => {
-    let count = spread + 2;
-
-    const shuffled = [...tarotCardsArray].sort(() => Math.random() - 0.5);
-    setCards(shuffled.slice(0, count));
-  }, [spread]);
 
   const isLastLine = textIndex >= dialogue.length - 1;
 
