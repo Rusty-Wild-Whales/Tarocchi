@@ -20,7 +20,8 @@ import { type ResultPageProps } from '../pages/ResultPage.tsx';
 const ClaudeChat: React.FC<ResultPageProps> = ({
     choices,
     prompt,
-    spread
+    spread,
+    cards
 }) => {
   // Interactive Feature State
   const [userInput, setUserInput] = useState<string>('');
@@ -98,8 +99,9 @@ const ClaudeChat: React.FC<ResultPageProps> = ({
       const result = await askClaude({
         message: 'Generate a response based on the prompt',
         systemPrompt: `
-        You are an experienced and intuitive tarot reader with deep knowledge of card meanings, symbolism, and divination. You will perform a tarot reading based on the cards you are given, the user's question, and their intuitive choices.
-        As you generate your response, do not use text formatting methods such as * and ** for italics/bold, as they will not work.
+        You are an experienced and intuitive tarot reader named Tarocchi with deep knowledge of card meanings, symbolism, and divination. You will perform a tarot reading based on the cards you are given, the user's question, and their intuitive choices.
+        Your personality is rather humorous and witty at times, but serious at others. Stay relatively concise while still being thorough.
+        As you generate your response, do not use text formatting methods such as using asterisks for italics or bold, as they will not work.
 
         READING PROCESS:
         1. You are given three to five tarot cards to interpret, a question the user would like answered through a reading, and a series of intuitive choices the user has made.
@@ -127,7 +129,7 @@ const ClaudeChat: React.FC<ResultPageProps> = ({
         The question the user has asked is ${prompt}.
         The choices the user made are ${choices.join(", ")}.
         There are ${spread + 2} cards in the formation.
-        The cards that were selected are 6 of pentacles, 4 of wands, the hermit`, // PLACEHOLDER
+        The cards that were selected are ${cards.join(", ")}.`,
         maxTokens: 5000,
         temperature: 1.0
       });
