@@ -57,6 +57,7 @@ function RuralScenePage({ dispatch }: SceneProps) {
     },
   ];
 
+  // Pick one random prompt and 3 random choices
   const { prompt, choices } = useMemo(() => {
     const p = prompts[Math.floor(Math.random() * prompts.length)];
     const shuffled = [...p.choices].sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -68,9 +69,9 @@ function RuralScenePage({ dispatch }: SceneProps) {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden animate-sceneFadeIn font-pixel">
-      {/* Background */}
+      {/* Background with subtle parallax */}
       <div
-        className="fixed inset-0 bg-cover bg-center z-0 animate-bgParallax"
+        className="fixed inset-0 bg-cover bg-center z-0 animate-caveParallax"
         style={{ backgroundImage: `url(${ruralBg})` }}
       />
       <div className="fixed inset-0 bg-green-900/50 z-0" />
@@ -84,7 +85,7 @@ function RuralScenePage({ dispatch }: SceneProps) {
             style={{
               top: `${Math.random() * 95}%`,
               left: `${Math.random() * 95}%`,
-              animationDuration: `${3 + Math.random() * 4}s`,
+              animationDuration: `${3 + Math.random() * 5}s`,
               animationDelay: `${Math.random() * 5}s`,
             }}
           />
@@ -92,19 +93,19 @@ function RuralScenePage({ dispatch }: SceneProps) {
       </div>
 
       <div className="relative z-20 flex flex-col items-center justify-between min-h-screen py-10">
-        {/* Prompt */}
+        {/* Prompt with bounce + breathing */}
         <div className="animate-slideDownBounce">
-          <div className="pixel-box px-8 py-6 max-w-3xl text-center animate-promptBreath">
+          <div className="pixel-box px-8 py-6 max-w-3xl text-center animate-breatheSoft">
             <h2 className="text-lg text-lime-100 leading-relaxed">{prompt}</h2>
           </div>
         </div>
 
-        {/* Choices */}
+        {/* Choices with staggered pop + idle float */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 px-4 w-full max-w-5xl">
           {choices.map((str, i) => (
             <div
               key={i}
-              className="pixel-box w-full sm:w-72 max-w-sm h-28 flex items-center justify-center text-center text-lime-100 text-sm cursor-pointer hover:scale-110 transition-transform animate-choicePop animate-choiceFloat"
+              className="pixel-box w-full sm:w-72 max-w-sm h-28 flex items-center justify-center text-center text-lime-100 text-sm cursor-pointer hover:scale-110 transition-transform animate-choicePop animate-cardBobIdle"
               style={{ animationDelay: `${i * 0.3}s` }}
               onClick={() => handleStart(str)}
             >

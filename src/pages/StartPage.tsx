@@ -12,7 +12,24 @@ function StartPage({ dispatch }: StartPageProps) {
   const [textIndex, setTextIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
-  const [lift, setLift] = useState(false); // triggers float-up
+  const [lift, setLift] = useState(false);
+  const [tarrochiMessage, setTarrochiMessage] = useState<string | null>(null);
+
+  const tarrochiLines = [
+    "Ahem! Do not poke the wizard’s hat, it is highly unstable.",
+    "Ah, yes, I foresaw you would click me. I only predicted it… fifteen times today.",
+    "Tarocchi accepts tips in coins, chocolate, or compliments.",
+    "Careful, mortal. Knowledge of the future is heavy baggage.",
+    "The cards whisper… but sometimes they just complain about being shuffled too much.",
+    "Each click fuels my mystical powers. Keep going, I run on attention.",
+    "You think you’re testing me? No, no… I am testing you.",
+    "Do not question the wizard. The wizard questions you.",
+    "Ah, an eager one! Clicks like these keep the lights on in my mystical tent.",
+    "You think you control the mouse? Ha! It is I who control the destiny of the cursor.",
+    "Shhh… do you hear that? That’s the sound of destiny rolling its eyes.",
+    "Every click makes your fortune brighter. Or darker. Or possibly shinier. Hard to say.",
+    "Yes, yes, I know the secrets of the universe. No, you may not have them all at once.",
+  ];
 
   const dialogue = [
     "Ahhh… welcome traveler! Before you lies the threshold, where the ancient art of Tarot Cards shall be reborn in glowing light!!",
@@ -46,6 +63,13 @@ function StartPage({ dispatch }: StartPageProps) {
     setIsPlaying(!isPlaying);
   };
 
+  const handleTarrochiClick = () => {
+    const randomLine =
+      tarrochiLines[Math.floor(Math.random() * tarrochiLines.length)];
+    setTarrochiMessage(randomLine);
+    setTimeout(() => setTarrochiMessage(null), 6000);
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen font-pixel">
       {/* Music button top-right */}
@@ -68,8 +92,14 @@ function StartPage({ dispatch }: StartPageProps) {
           <img
             src={wizardImage}
             alt="wizard"
-            className="relative w-96 h-auto flex-shrink-0 animate-floatSway"
+            className="relative w-96 h-auto flex-shrink-0 animate-floatSway cursor-pointer"
+            onClick={handleTarrochiClick}
           />
+          {tarrochiMessage && (
+            <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-purple-900/90 text-white px-4 py-2 rounded-lg shadow-lg text-xs w-64 text-center animate-fadeIn">
+              {tarrochiMessage}
+            </div>
+          )}
         </div>
 
         {/* Dialogue bubble */}
@@ -79,7 +109,6 @@ function StartPage({ dispatch }: StartPageProps) {
               <TypewriterText text={dialogue[textIndex]} speed={1} />
             </p>
 
-            {/* Skip button */}
             {!lift && (
               <button
                 onClick={handleSkip}
@@ -90,10 +119,8 @@ function StartPage({ dispatch }: StartPageProps) {
             )}
           </div>
 
-          {/* Tail */}
           <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
-          {/* Next button */}
           {!lift && (
             <button
               onClick={handleNext}
@@ -111,10 +138,9 @@ function StartPage({ dispatch }: StartPageProps) {
         </div>
       </div>
 
-      {/* Begin button */}
       {showChoices && (
         <button
-          className="-mt-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-3 text-lg font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn "
+          className="-mt-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-900 text-white px-8 py-3 text-lg font-bold rounded-xl shadow-xl transition-transform duration-300 hover:scale-110 hover:shadow-purple-500/40 animate-fadeIn"
           onClick={handleStart}
         >
           Begin the Reading
