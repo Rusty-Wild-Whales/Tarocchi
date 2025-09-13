@@ -1,31 +1,31 @@
 /* How to use on local:
 
 step 1: start backend
--> cd claude-backend
--> node server.js
+$ cd claude-backend
+$ pnpm install (first-time setup)
+$ node server.js
 
 step 1.5 (optional): test backend
 visit http://localhost:3001/test, see status messages (should be 2)
 
 step 2: start react
--> pnpm run dev
-
-import with following:
-import ClaudeChat from "./components/ClaudeChat.tsx";
+$ pnpm run dev
 */
 
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useClaudeAPI } from '../customHooks/useClaudeAPI';
+import { type ResultPageProps } from '../pages/ResultPage.tsx';
 
-const ClaudeChat: React.FC = () => {
+const ClaudeChat: React.FC<ResultPageProps> = ({
+    choices,
+    prompt,
+    spread
+}) => {
   // Interactive Feature State
   const [userInput, setUserInput] = useState<string>('');
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [currentResult, setCurrentResult] = useState<string>('');
-  
-  // Auto-expanding textarea ref
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Scenario Generator State
   const [autoScenario, setAutoScenario] = useState<string>('');
@@ -43,29 +43,8 @@ const ClaudeChat: React.FC = () => {
     loading,
     error,
     askClaude,
-    exportResponses,
-    searchResponses,
-    calculateCosts
   } = useClaudeAPI();
 
-  // The 3 options user can choose from
-  const options = [
-    {
-      value: 'analyze',
-      label: 'Deep Analysis',
-      prompt: 'Analyze this in detail, providing insights, implications, and actionable recommendations:'
-    },
-    {
-      value: 'improve',
-      label: 'Improvement Suggestions',
-      prompt: 'Review this and provide specific, actionable improvement suggestions with clear steps:'
-    },
-    {
-      value: 'creative',
-      label: 'Creative Enhancement',
-      prompt: 'Take this concept and expand it creatively with innovative ideas and possibilities:'
-    }
-  ];
 
   // Check backend status on component mount
   useEffect(() => {
@@ -78,11 +57,6 @@ const ClaudeChat: React.FC = () => {
       setUserInput(savedInput);
     }
   }, []);
-
-  // Auto-adjust textarea height when input changes
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [userInput]);
 
   const checkBackendStatus = async () => {
     try {
@@ -116,51 +90,7 @@ const ClaudeChat: React.FC = () => {
     }
   };
 
-  // Auto-expand textarea function
-  const adjustTextareaHeight = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-    }
-  };
-
-  // Handle input change and auto-expand
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserInput(e.target.value);
-    // Store input in localStorage as user types
-    localStorage.setItem('current-user-input', e.target.value);
-  };
-
-  // FEATURE 1: Interactive Prompt Processing
-  const handleProcessInput = async (): Promise<void> => {
-    if (!userInput.trim() || !selectedOption) {
-      alert('Please enter text and select an option');
-      return;
-    }
-
-    const selectedPrompt = options.find(opt => opt.value === selectedOption);
-    
-    try {
-      const result = await askClaude({
-        message: userInput,
-        systemPrompt: selectedPrompt?.prompt,
-        maxTokens: 2000,
-        temperature: 0.7
-      });
-
-      if (result) {
-        setCurrentResult(result.content);
-        // Clear input after successful processing
-        setUserInput('');
-        localStorage.removeItem('current-user-input');
-        setSelectedOption(''); // Reset selection
-      }
-    } catch (err) {
-      console.error('Processing failed:', err);
-    }
-  };
-
-  // FEATURE 2: Automatic Scenario Generator
+  // Tarot Reading Generator
   const generateScenario = async (): Promise<void> => {
     setScenarioLoading(true);
 
@@ -169,6 +99,7 @@ const ClaudeChat: React.FC = () => {
         message: 'Generate a response based on the prompt',
         systemPrompt: `
         You are an experienced and intuitive tarot reader with deep knowledge of card meanings, symbolism, and divination. You will perform a tarot reading based on the cards you are given, the user's question, and their intuitive choices.
+        As you generate your response, do not use text formatting methods such as * and ** for italics/bold, as they will not work.
 
         READING PROCESS:
         1. You are given three to five tarot cards to interpret, a question the user would like answered through a reading, and a series of intuitive choices the user has made.
@@ -191,9 +122,14 @@ const ClaudeChat: React.FC = () => {
         4. Overall reading synthesis
         5. Practical guidance and next steps
 
-        Be mystical yet grounded, intuitive yet logical, mysterious yet helpful.`,
+        Be mystical yet grounded, intuitive yet logical, mysterious yet helpful.
+        
+        The question the user has asked is ${prompt}.
+        The choices the user made are ${choices.join(", ")}.
+        There are ${spread + 2} cards in the formation.
+        The cards that were selected are 6 of pentacles, 4 of wands, the hermit`, // PLACEHOLDER
         maxTokens: 5000,
-        temperature: 0.8
+        temperature: 1.0
       });
 
       if (result) {
@@ -206,45 +142,6 @@ const ClaudeChat: React.FC = () => {
       setScenarioLoading(false);
     }
   };
-
-  // Handle keyboard shortcuts
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
-    if (e.key === 'Enter' && e.ctrlKey) {
-      e.preventDefault();
-      handleProcessInput();
-    }
-  };
-
-  // Clear functions
-  const clearResults = () => {
-    localStorage.removeItem('claude-responses');
-    localStorage.removeItem('current-user-input');
-    setCurrentResult('');
-    setAutoScenario('');
-    setUserInput('');
-    setSelectedOption('');
-    window.location.reload();
-  };
-
-  const clearInput = () => {
-    setUserInput('');
-    localStorage.removeItem('current-user-input');
-  };
-
-  // Download export functionality
-  const downloadExport = (format: 'json' | 'csv' | 'txt'): void => {
-    const data = exportResponses(format);
-    const blob = new Blob([data], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `claude-responses-${Date.now()}.${format}`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // Filter responses for search
-  const filteredResponses = searchQuery ? searchResponses(searchQuery) : responses;
 
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>

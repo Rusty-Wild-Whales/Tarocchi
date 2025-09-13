@@ -5,7 +5,7 @@ import { TypewriterText } from "../components/TypeWriter";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card";
 import ClaudeChat from "../components/ClaudeChat";
 
-type ResultPageProps = {
+export type ResultPageProps = {
   dispatch: React.Dispatch<GameAction>;
   choices: string[];
   prompt?: string;
@@ -323,19 +323,6 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
               </div>
             )}
           </div>
-
-          {/* Interpretation */}
-          <div className="bg-indigo-900/70 text-white px-10 py-8 rounded-2xl shadow-lg max-w-3xl text-center backdrop-blur-sm">
-            <h2
-              className="text-2xl font-semibold mb-4"
-              style={{ fontFamily: "font-pixel" }}
-            >
-              Interpretation
-            </h2>
-            <p className="text-lg leading-relaxed">
-              The meaning of your cards will appear here… (placeholder text).
-            </p>
-          </div>
         </div>
       )}
 
@@ -389,7 +376,13 @@ function ResultPage({ dispatch, choices, prompt, spread }: ResultPageProps) {
         </ul>
       </div>
 
-      <ClaudeChat />
+      <ClaudeChat 
+        dispatch = {dispatch}
+        choices = {choices}
+        prompt = {prompt}
+        spread = {spread}
+        />
+
     </div>
   );
 }
