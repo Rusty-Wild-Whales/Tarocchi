@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 export type GameState = {
+  sceneOrder: any;
   stage: "land" | "spread" | "scene" | "result";
   spread: number;
   sceneIndex: number;
@@ -20,26 +21,58 @@ const initialState: GameState = {
   spread: 0,
   sceneIndex: 0,
   choices: [],
+  sceneOrder: undefined,
 };
+
+const allScenes = ["forest", "castle", "rural", "cave", "city"];
+
+function shuffle<T>(arr: T[]): T[] {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function getSceneOrder(spread: number): string[] {
+  switch (spread) {
+    case 1:
+      return shuffle(allScenes).slice(0, 3); // three-card
+    case 2:
+      return shuffle(allScenes).slice(0, 4); // compass
+    case 3:
+      return shuffle(allScenes).slice(0, 5); // v spread
+    default:
+      return [];
+  }
+}
 
 function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case "LANDING":
       return { ...state, stage: "spread" };
-    case "SET_SPREAD":
-      return { ...state, spread: action.spread, stage: "scene" };
-    case "NEXT_SCENE":
-      console.log(state)
-      state = {...state, choices: [...state.choices, action.choice]}
-      if (state.sceneIndex < state.spread + 1) {
-        return { ...state, sceneIndex: state.sceneIndex + 1 };
-      } else {
-        return { ...state, stage: "result" };
+
+    case "SET_SPREAD": {
+      const order = getSceneOrder(action.spread);
+      return {
+        ...state,
+        spread: action.spread,
+        stage: "scene",
+        sceneIndex: 0,
+        sceneOrder: order,
+        choices: [],
+      };
+    }
+
+    case "NEXT_SCENE": {
+      const newChoices = [...state.choices, action.choice];
+      const nextIndex = state.sceneIndex + 1;
+
+      if (nextIndex >= (state.sceneOrder?.length || 0)) {
+        return { ...state, stage: "result", choices: newChoices };
       }
+      return { ...state, sceneIndex: nextIndex, choices: newChoices };
+    }
+
     default:
       return state;
   }
-
   return initialState;
 }
 

@@ -8,12 +8,14 @@ type ResultPageProps = {
 
 function ResultPage({ dispatch, choices }: ResultPageProps) {
   return (
-    <>
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="flex flex-col gap-3 bg-red-300">THIS_IS_THE_RESULT_PAGE</div>
-        <p className="bg-blue-300">USER_INPUTED: {choices}</p>
-      </div>
-    </>
+    <div className="bg-indigo-900/70 rounded-xl shadow-lg px-8 py-6 text-white">
+      <h2 className="text-2xl mb-4">Your Journey</h2>
+      <ul className="list-disc text-left space-y-2">
+        {choices.split(",").map((c, i) => (
+          <li key={i}>{c}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
