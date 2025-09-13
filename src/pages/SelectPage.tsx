@@ -43,7 +43,7 @@ function SelectPage({ dispatch }: SelectPageProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen animate-fadeIn">
       {/* Wizard + dialogue bubble */}
       <div
         className={`flex items-start gap-6 -translate-x-10 relative z-10 ${

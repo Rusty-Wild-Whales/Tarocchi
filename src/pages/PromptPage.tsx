@@ -10,6 +10,8 @@ type PromptPageProps = {
 function PromptPage({ dispatch }: PromptPageProps) {
   const [input, setInput] = useState("");
   const [textIndex, setTextIndex] = useState(0);
+  const [lift, setLift] = useState(false); // triggers float-up
+  const [showPrompt, setShowPrompt] = useState(false);
 
   const dialogue = [
     "Ah, traveler, before the cards can whisper their secrets, you must whisper yours.",
@@ -17,8 +19,16 @@ function PromptPage({ dispatch }: PromptPageProps) {
     "Do not fear. Tarrochi listens, and your words will shape the path ahead.",
   ];
 
+  const isLastLine = textIndex >= dialogue.length - 2;
+
   const handleNext = () => {
-    if (textIndex < dialogue.length - 1) setTextIndex((i) => i + 1);
+    if (!isLastLine) {
+      setTextIndex((i) => i + 1);
+    } else {
+      // final press → float up, then reveal spreads with fade-in
+      setLift(true);
+      setTimeout(() => setShowPrompt(true), 1200);
+    }
   };
 
   const handleSubmit = () => {
@@ -29,11 +39,10 @@ function PromptPage({ dispatch }: PromptPageProps) {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen">
-      {/* Background same as StartPage */}
-      <div className="absolute inset-0 bg-[url('../assets/bg.png')] bg-cover bg-center backdrop-brightness-60" />
-
       {/* Wizard + dialogue bubble */}
-      <div className="flex items-start space-x-6 -translate-x-10 relative z-10">
+      <div className={`flex items-start space-x-6 -translate-x-10 relative z-10 ${
+        lift ? "animate-floatUp" : ""
+        }`}>
         <div className="relative">
           <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full" />
           <img
@@ -57,7 +66,7 @@ function PromptPage({ dispatch }: PromptPageProps) {
           <div className="absolute -left-3 top-10 w-0 h-0 border-t-8 border-b-8 border-r-[14px] border-t-transparent border-b-transparent border-r-indigo-800" />
 
           {/* Next button */}
-          {textIndex < dialogue.length - 1 && (
+          {!lift && (
             <button
               onClick={handleNext}
               aria-label="Next"
@@ -75,13 +84,13 @@ function PromptPage({ dispatch }: PromptPageProps) {
       </div>
 
       {/* Input box at bottom */}
-      {textIndex >= dialogue.length - 1 && (
-        <div className="relative z-10 w-full max-w-2xl mt-16 mb-20 px-6">
+      {showPrompt && (
+        <div className="relative z-10 w-full h-50 -mt-50 max-w-2xl px-6 animate-fadeIn">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Speak your question into the ether..."
-            className="w-full h-28 p-4 text-lg rounded-2xl bg-purple-900/70 text-white border border-purple-400/60 shadow-lg resize-none focus:outline-none focus:ring-4 focus:ring-purple-400/60"
+            className="w-full h-40 p-4 text-lg mt-36 rounded-2xl bg-purple-900/70 text-white border border-purple-400/60 shadow-lg resize-none focus:outline-none focus:ring-4 focus:ring-purple-400/60"
             style={{ fontFamily: '"Cormorant Garamond", serif' }}
           />
           <button
